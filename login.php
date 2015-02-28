@@ -1,7 +1,7 @@
 <?php
 
 $page_title = 'DataCast - Login';
-include ('includes/header.html');
+include('includes/header.php');
 
 if(isset($error) && !empty($errors)){
 	echo '<p id = "err_msg">Oops! There was a problem:<br>';
@@ -24,4 +24,4 @@ Password: <input type = "password" name = "pass">
 </form>
 <p>Or Register <a href = "register.php">here</a></p>
 
-<?php include ('includes/footer.html'); ?>
+ <!-- <?php include ('includes/footer.html'); ?> -->

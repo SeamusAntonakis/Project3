@@ -1,8 +1,7 @@
 <?php
 $page_title = 'DataCast - Creator';
-include('includes/header.html');
+include('includes/header.php');
 require('../connect_db.php');
-session_start();
 
 if(!isset($_SESSION['user_id'])){
 	echo "<p>You need to <a href = \"login.php\">login</a> before doing anything here.</p>";
@@ -65,4 +64,4 @@ else{
 	}
 }
 
-include('includes/footer.html');
+# include('includes/footer.html');

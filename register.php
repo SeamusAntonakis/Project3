@@ -1,6 +1,6 @@
 <?php
 $page_title = 'DataCast - Register';
-include('includes/header.html');
+include('includes/header.php');
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 	require('../connect_db.php');
@@ -111,4 +111,4 @@ value = "<?php if (isset($_POST['pass2'])) echo $_POST['pass2'];?>">
 <input type = "submit" value = "Register"></p>
 </form>
 
-<?php include ('includes/footer.html'); ?>
+ <!-- <?php include ('includes/footer.html'); ?> -->

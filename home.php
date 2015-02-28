@@ -1,45 +1,46 @@
 <?php
 
-# session_start creates a session or resumes the current
-# one based on the session identifier passed by GET or POST
-# in this way variables are available from other pages of the 
-# site with the superglobal $_SESSION. Commonly user data.
-
-session_start();
-
 $page_title = 'AppCast - Home';
 
 # Include header placed in the includes folder.
 
-include('includes/header.html');
+include('includes/header.php');
 
+# Display grid of images.
 
-# We can tell from $_SESSION[] whether or not a user
-# is logged in, if s(he) is then display a different 
-# than that viewed by an anonymous user.
-
-if(isset($_SESSION['user_id'])){
-	echo "<h1>HOME</h1>
-		<p>You are now logged in,
-		{$_SESSION['first_name']} {$_SESSION['last_name']}
-		</p>";
-}
-
-# Anonymous user view.
-
-else echo '<h1>HOME</h1>
-		<p>Welcome to Datacast.
-		</p>';
-		
-# Display login or Signup links for anonymous users, otherwise 
-# display a logout link.		
-
-if(!isset($_SESSION['user_id'])){
-	echo '<p><a href = "login.php">Login</a> | <a href = "register.php">Signup</a></p>';
-}
-else echo '<p><a href = "goodbye.php">Logout</a></p>';
+echo '
+<div class="wrapper">
+	<div class="container">	
+		<div id="two-columns" class="grid-container" style="display:block;">
+			<ul class="rig columns">
+				<li>
+					<img src="includes/images/1.jpg" />
+					<h3>Image Title</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="includes/images/2.jpg" />
+					<h3>Image Title</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="includes/images/3.jpg" />
+					<h3>Image Title</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+				<li>
+					<img src="includes/images/4.jpg" />
+					<h3>Image Title</h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+				</li>
+			</ul>
+		</div>
+		</div>
+	<!--/.container-->
+</div>
+<!--/.wrapper-->';
 
 # Include the footer placed in the includes folder.
-include('includes/footer.html');
+# include('includes/footer.html');
 
 ?>

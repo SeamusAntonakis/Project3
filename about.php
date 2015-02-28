@@ -1,5 +1,5 @@
 <?php
 $page_title = 'DataCast - About us';
-include('includes/header.html');
-include('includes/footer.html');
+include('includes/header.php');
+# include('includes/footer.html');
 ?>
