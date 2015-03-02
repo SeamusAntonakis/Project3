@@ -70,8 +70,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 # Instead of interacting with the database, display messages contained in $errors array.
 	
 	else{
-		echo '<h1>Error!</h1>
-				<p id = "err_msg">The following error(s) occured:<br>';
+		echo '
+	<div class = "centerbox">
+		<h1>Error!</h1>
+		<p id = "err_msg">The following error(s) occured:<br>';
 		foreach($errors as $msg){
 			echo " - $msg<br>";
 		}
@@ -81,34 +83,39 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 }
 ?>
 
-<h1>Register</h1>
-
+<div class = "centerbox">
+	<div class = "centered">
+		<h1>Register</h1>
+	
 <!--
 	When the user hits submit, load register.php with method POST
 -->
 
-<form action="register.php" method = "POST">
+		<form action="signup.php" method = "POST">
 
 <!--
 	Given that there is a value for $_POST['first_name'], write that value in the field
 	This occurs when the user has previously pressed the submit button, values entered are 
 	retained
 -->
-<p>
-First Name: <input type = "text" name = "first_name"
-value = "<?php if (isset($_POST['first_name'])) echo $_POST['first_name'];?>">
-Last Name: <input type = "text" name = "last_name"
-value = "<?php if (isset($_POST['last_name'])) echo $_POST['last_name'];?>">
-</p><p>
-Email Address: <input type = "text" name = "email"
-value = "<?php if (isset($_POST['email'])) echo $_POST['email'];?>">
-</p><p>
-Password: <input type = "password" name = "pass1"
-value = "<?php if (isset($_POST['pass1'])) echo $_POST['pass1'];?>">
-Password: <input type = "password" name = "pass2"
-value = "<?php if (isset($_POST['pass2'])) echo $_POST['pass2'];?>">
-</p><p>
-<input type = "submit" value = "Register"></p>
-</form>
 
+		<p>
+		<input class = "cred fsname" type = "text" name = "first_name" placeholder ="First Name"
+		value = "<?php if (isset($_POST['first_name'])) echo $_POST['first_name'];?>">
+		<input class = "cred fsname" type = "text" name = "last_name" placeholder ="Last Name"
+		value = "<?php if (isset($_POST['last_name'])) echo $_POST['last_name'];?>">
+		</p><p>
+		<input class = "cred" type = "text" name = "email" placeholder ="Email"
+		value = "<?php if (isset($_POST['email'])) echo $_POST['email'];?>">
+		</p><p>
+		<input class = "cred" type = "password" name = "pass1" placeholder ="Password"
+		value = "<?php if (isset($_POST['pass1'])) echo $_POST['pass1'];?>">
+		</p><p>
+		<input class = "cred" type = "password" name = "pass2" placeholder ="Re-enter Password"
+		value = "<?php if (isset($_POST['pass2'])) echo $_POST['pass2'];?>">
+		</p><p>
+		<input class = "credbutton" type = "submit" value = "Register"></p>
+		</form>
+	</div>
+</div>
  <!-- <?php include ('includes/footer.html'); ?> -->
