@@ -27,11 +27,11 @@
 # than that viewed by an anonymous user
 
 	if(isset($_SESSION['user_id'])){
-		echo '<li class = "right"><a class = "button" href = "goodbye.php">Logout</a></li>';
+		echo '<li class = "right"><a class = "button" href = "goodbye.php">Sign Out</a></li>';
 		echo '<li class = "right"><a class = "button" href = ""> ' . $_SESSION['first_name'].' '.$_SESSION['last_name'].'</a></li>';
 	} 
 
-	else echo '<li class = "right"><a class = "button" href = "login.php">Login</a></li>';
+	else echo '<li class = "right"><a class = "button" href = "signin.php">Sign In</a></li>';
 
 	?>
 
