@@ -3,8 +3,12 @@ $page_title = 'DataCast - Creator';
 include('includes/header.php');
 require('../connect_db.php');
 
+echo '
+<div class = "centerbox">
+	<div class = "centered">';
+
 if(!isset($_SESSION['user_id'])){
-	echo "<p>You need to <a href = \"login.php\">login</a> before doing anything here.</p>";
+	echo "<p>You need to <a href = \"signin.php\">Sign in</a> before doing anything here.</p>";
 }
 
 else{
@@ -27,12 +31,24 @@ else{
 		}
 		
 		if(empty($errors)){
-			
-			
+
+# the userdatabase table is used to assosciate a database with a user
+
 			$q = "INSERT INTO userdatabase (dbname, user_id) VALUES ('$dbn','$_SESSION[user_id]')";
 			$r = mysqli_query($dbc,$q);
-			
-			if($r){
+
+# select the new database ID and use that id to make a new database, 
+# this ensures all database names are unique
+
+			$num = mysqli_query($dbc,"SELECT dbid FROM userdatabase ORDER BY dbid DESC LIMIT 1");
+			$x = mysqli_fetch_array($num, MYSQLI_ASSOC);
+
+			$i = "CREATE DATABASE IF NOT EXISTS _" . $x['dbid'] ;
+			$s = mysqli_query($dbc,$i);
+
+			echo $dbc ->error;
+
+			if($r && $s){
 				echo '<p>You created your Database, well done.</p>';
 			}
 
@@ -64,4 +80,7 @@ else{
 	}
 }
 
+echo '
+	</div>
+</div>';
 # include('includes/footer.html');

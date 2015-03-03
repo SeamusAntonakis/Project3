@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS site_db;
 
-GRANT SELECT,INSERT,UPDATE ON site_db.*
+GRANT CREATE,SELECT,INSERT,UPDATE ON site_db.*
 TO 'aran'@'localhost' IDENTIFIED BY 'pass';
 
 USE site_db;
