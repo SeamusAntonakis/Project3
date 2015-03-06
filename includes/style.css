@@ -117,7 +117,6 @@ li {
 
 a:link.button, a:visited.button {
     display: block;
-
     font-weight: bold;
     color: #FFFFFF;
     background-color: #5C5C5C;
@@ -127,7 +126,7 @@ a:link.button, a:visited.button {
     text-transform: uppercase;
 }
 
-a:hover.button, a:active.button {
+a:hover.button, a:active.button, a:focus.button{
     background-color: black;
 }
 
@@ -194,4 +193,34 @@ a:hover.button, a:active.button {
     -webkit-box-shadow: 0px 1px 1px #B20000;
     -moz-box-shadow: 0px 1px 1px #B20000;
     box-shadow: 0px 1px 1px #B20000;
+}
+
+table{
+    border-spacing: 5px; 
+    width:530px;
+}
+
+th{
+    padding: 4px;
+    font-weight: bold;
+    color:#FFF;
+    background :#5C5C5C;
+    text-align: left;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+td{
+    border-bottom: 1px solid black;
+    padding :3px;
+    background:#F0F0F0;
+    text-align: left;
+    vertical-align: top;
+}
+
+.tabletitle{
+    text-align: left;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 4px;
 }
