@@ -8,7 +8,17 @@ echo '
 <div class = "centerbox">
 	<div class = "centered">';
 echo "
-<a href = \"upload.php?db= {$_GET["db"]}\">upload sql file for this Database </a>";
+<p><a href = \"upload.php?db={$_GET["db"]}\">upload sql file for this Database </a></p>
+";
+
+echo"
+<p><a href = \"download.php?db={$_GET["db"]}\">download sql dump file for this Database</a></p>
+";
+
+echo"
+<p><a href = \"query.php?db={$_GET["db"]}\">query this database</a></p>
+";
+
 # prevent anonymous users from using this page's functionality
 
 if(!isset($_SESSION['user_id'])){

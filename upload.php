@@ -40,7 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             echo basename( $_FILES["fileToUpload"]["name"]);
             
-            $q = 'USE _22';
+            $q = 'USE _' . $_GET["db"];
  
             $r = mysqli_query($dbc,$q) or die(mysqli_error($dbc));
 
@@ -81,7 +81,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     }
 }
 ?>
-        <form action="upload.php" method="POST" enctype="multipart/form-data">
+        <form action = <?php echo '"upload.php?db=' . $_GET["db"] . '"';?> method="POST" enctype="multipart/form-data">
             Select sql file to upload:
             <input type="file" name="fileToUpload" id="fileToUpload">
             <input type="submit" value="Submit to Database" name="submit">

@@ -224,3 +224,12 @@ td{
     text-transform: uppercase;
     padding: 4px;
 }
+
+.left{
+    text-align:left;
+}
+
+.querytext {
+    width: 300px;
+    height: 300px;
+}

@@ -3,6 +3,9 @@ CREATE DATABASE IF NOT EXISTS site_db;
 GRANT CREATE,SELECT,INSERT,UPDATE ON site_db.*
 TO 'aran'@'localhost' IDENTIFIED BY 'pass';
 
+GRANT SELECT , INSERT , UPDATE , DELETE ON * . * 
+TO 'secondary'@'localhost' IDENTIFIED BY 'pass';
+
 USE site_db;
 
 CREATE TABLE IF NOT EXISTS users(
@@ -23,9 +26,3 @@ user_id		INT UNSIGNED NOT NULL,
 PRIMARY KEY (dbid),
 FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
-
-CREATE TABLE IF NOT EXISTS numtables(
-num			INT NOT NULL,
-PRIMARY KEY	(num)
-);
-

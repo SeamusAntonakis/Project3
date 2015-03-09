@@ -23,8 +23,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
 	if(trim(empty($_POST['email']))){
 		$errors[] = 'Enter your email address.';
-	} else{
-		$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
+	}
+
+	else{
+
+		$email = $_POST['email'];
+# use regular expression to determine validity of email
+		$pattern = '/\b[\w.-]+@[\w.-]+\.[A-Za-z]{2,6}\b/';
+
+		if(!preg_match($pattern,$email)){
+			$errors[] = 'That is not a valid email address!';
+		} else{
+			$e = mysqli_real_escape_string($dbc, trim($_POST['email']));
+		}
 	}
 
 	if(!empty(trim($_POST['pass1']))){
@@ -89,7 +100,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 		<h1>Register</h1>
 	
 <!--
-	When the user hits submit, load register.php with method POST
+	When the user hits submit, load signup.php with method POST
 -->
 
 		<form action="signup.php" method = "POST">

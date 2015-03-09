@@ -4,8 +4,10 @@ include('includes/header.php');
 require('../connect_db.php');
 
 echo '
-<div class = "centerbox">
-	<div class = "centered">';
+<div class = "centered">
+	<div class = "centerbox">
+		<div class = "left">';
+
 
 if(!isset($_SESSION['user_id'])){
 	echo "<p>You need to <a href = \"signin.php\">Sign in</a> before doing anything here.</p>";
@@ -46,7 +48,16 @@ else{
 			$i = "CREATE DATABASE IF NOT EXISTS _" . $x['dbid'] ;
 			$s = mysqli_query($dbc,$i);
 
-			echo $dbc ->error;
+			echo $dbc->error;
+
+			# go in another file
+			
+			$db_name = '_' . $x['dbid'];
+			require('../secondary.php');
+
+
+			if($j) echo 'grant permission set.';
+			else echo $dbc->error;
 
 			if($r && $s){
 				echo '<p>You created your Database, well done.</p>';
@@ -81,6 +92,7 @@ else{
 }
 
 echo '
+		</div>
 	</div>
 </div>';
 # include('includes/footer.html');
