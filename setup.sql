@@ -30,6 +30,8 @@ FOREIGN KEY(user_id) REFERENCES users(user_id),
 FOREIGN KEY(dbid) REFERENCES userdatabase(dbid)
 );
 
+CREATE UNIQUE INDEX portal_index ON portal(user_id, dbid);
+
 CREATE TABLE IF NOT EXISTS userdatabase(
 dbid		INT AUTO_INCREMENT,
 dbname		VARCHAR(60)	NOT NULL,
