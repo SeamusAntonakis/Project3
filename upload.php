@@ -16,24 +16,24 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     # check if file already exists
     if (file_exists($target_file)) {
-        echo "Sorry, file already exists.";
+        echo "<p>Error: upload directory contains file of the same name</p>";
         $uploadOk = 0;
     }
 
     # allow certain file formats
     if($fileType != "sql") {
-        echo "Sorry, only SQL files allowed.";
+        echo "<p>Sorry, only SQL files allowed.</p>";
         $uploadOk = 0;
     }
 
     # check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        echo "Sorry, your file was not uploaded.";
+        echo "<p>Your file was not uploaded.<p>";
     # if everything is ok, try to upload file
     } else {
 
         if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-            echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+            echo "<p>The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.</p>";
 
             # this next segment of code removes comments and semicolons in the users .sql file and 
             # runs the sql file against the database.
@@ -67,13 +67,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 }
             }
 
-            echo "Tables imported successfully";
+            echo "<p>Tables imported successfully</p>";
 
             #finally, delete the file
-            $r = unlink($target_file);
-            if($r){
-                echo 'file deleted successfully';
-            }
+            unlink($target_file);
 
         } else {
             echo "Sorry, there was an error uploading your file.";

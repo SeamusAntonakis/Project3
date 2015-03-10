@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS site_db;
 
 GRANT CREATE,SELECT,INSERT,UPDATE ON site_db.*
-TO 'aran'@'localhost' IDENTIFIED BY 'pass';
+TO 'primary'@'localhost' IDENTIFIED BY 'pass';
 
 GRANT SELECT , INSERT , UPDATE , DELETE ON * . * 
 TO 'secondary'@'localhost' IDENTIFIED BY 'pass';
@@ -17,6 +17,17 @@ pass		CHAR(40) 	NOT NULL,
 reg_date	DATETIME	NOT NULL,
 PRIMARY KEY	(user_id),
 UNIQUE		(email)
+);
+
+CREATE TABLE IF NOT EXISTS portal(
+user_id		INT UNSIGNED NOT NULL,
+dbid		INT NOT NULL,
+retrieve	BOOLEAN NOT NULL,
+insrt		BOOLEAN	NOT NULL,
+updte		BOOLEAN	NOT NULL,
+dlt			BOOLEAN NOT NULL,
+FOREIGN KEY(user_id) REFERENCES users(user_id),
+FOREIGN KEY(dbid) REFERENCES userdatabase(dbid)
 );
 
 CREATE TABLE IF NOT EXISTS userdatabase(

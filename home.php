@@ -1,6 +1,6 @@
 <?php
 
-$page_title = 'DataCast - Home';
+$page_title = 'DataCast';
 
 # Include header placed in the includes folder.
 

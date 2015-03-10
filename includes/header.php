@@ -10,7 +10,7 @@
 <div class = "headersect">
 <ul>
 	<li><a class = "button" href = "home.php">Home</a></li>
-	<li><a class = "button" href = "viewer.php">Viewer</a></li>
+	<li><a class = "button" href = "portal.php">Portal</a></li>
 	<li><a class = "button" href = "creator.php">Creator</a></li>
 	<li><a class = "button" href = "about.php">About us</a></li>
 	<?php 

@@ -34,7 +34,7 @@ else{
 		
 		if(empty($errors)){
 
-# the userdatabase table is used to assosciate a database with a user
+# the userdatabase table is used to associate a database with a user
 
 			$q = "INSERT INTO userdatabase (dbname, user_id) VALUES ('$dbn','$_SESSION[user_id]')";
 			$r = mysqli_query($dbc,$q);
@@ -48,19 +48,10 @@ else{
 			$i = "CREATE DATABASE IF NOT EXISTS _" . $x['dbid'] ;
 			$s = mysqli_query($dbc,$i);
 
-			echo $dbc->error;
-
-			# go in another file
-			
-			$db_name = '_' . $x['dbid'];
-			require('../secondary.php');
-
-
-			if($j) echo 'grant permission set.';
-			else echo $dbc->error;
-
-			if($r && $s){
-				echo '<p>You created your Database, well done.</p>';
+			if(!$r || !$s){
+				echo '<p>Error in database creation!</p>';
+				echo $dbc->error;
+				exit();
 			}
 
 		} else{
@@ -84,10 +75,10 @@ else{
 			$q = "SELECT dbid FROM userdatabase WHERE user_id ={$_SESSION['user_id']} AND dbname = '{$row['dbname']}'";
 			$db = mysqli_query($dbc,$q);
 			$x = mysqli_fetch_array($db, MYSQLI_ASSOC);
-			echo '-<a href = "create_table.php?db='.$x['dbid'].'">' . $row['dbname'] . '</a><br>';
+			echo '- ID: ' . $x['dbid'] . ' <a href = "create_table.php?db=' . $x['dbid'] . '">' . $row['dbname'] . '</a> <a href = "portalmanager.php?db=' . $x['dbid'] . '">Manage Portal</a><br>';
 		}
 	} else{
-		echo 'You have no databases.';
+		echo '<p>You have no databases.</p>';
 	}
 }
 
