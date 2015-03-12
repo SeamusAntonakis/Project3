@@ -1,27 +1,55 @@
-<?php
+<?php 
+
 $page_title = 'DataCast - Query';
-	include('includes/header.php');
+require('includes/header.php');
 
-	echo '<div class = "centerbox">
-	<div class = "centered">';
+echo '<div class = "centerbox">
+<div class = "centered">';
 
-	if($_SERVER['REQUEST_METHOD'] == 'POST'){
-		
-		$db_name = '_' . $_GET["db"];
-		require('../secondary.php');
-		$q = 'USE ' . $db_name;
-		$r = mysqli_query($dbc,$q) or die(mysqli_error($dbc));
+if(!isset($_SESSION['user_id'])){
+	echo '<p>You need to <a href = "login.php">login</a> before doing anything here.</p>';
+	exit();
+}
 
-		if($r){
 
-			$q = $_POST['query'];
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+	
+# store the name of the database to be queried 
 
-			if (!empty(trim($q))){
+	$db_name = '_' . $_GET["db"];
+
+# connect to the database as a user who has limited permissions
+# in this case you can SELECT, UPDATE, INSERT and DELETE
+
+	require('../secondary.php');
+
+# make sure the queries are run against the database provided by 
+# the URL
+
+	$q = 'USE ' . $db_name;
+	$r = mysqli_query($dbc,$q) or die(mysqli_error($dbc));
+
+	if($r){
+
+# obtain the query
+
+		$q = $_POST['query'];
+		$q = trim($q);
+		if (!empty($q)){
+
+# make sure the user doesn't try to switch database by checking if 
+# USE is at the start of a query
+
+			if(strpos($q,'use') === 0 || strpos($q,'USE') === 0 || strpos($q,'show') === 0 || strpos($q,'SHOW') === 0 ){
+				echo '<p>Error: illegal syntax, cannot use SHOW or USE in your queries!</p>';
+			} else{
 
 				$r = mysqli_query($dbc,$q);
 
 				if($r){
-					# display result of query
+
+# display result of query
+
 					echo '<table>
 					<tr>';
 
@@ -53,14 +81,15 @@ $page_title = 'DataCast - Query';
 				} else{
 					echo '<p>Error: ' . mysqli_error($dbc) . '</p>';
 				}
-			} else{
-				echo 'Error: Empty Query';
 			}
-			
 		} else{
-				echo '<p>use Error: ' . mysqli_error($dbc) . '</p>' ;
+			echo 'Error: Empty Query';
 		}
+		
+	} else{
+			echo '<p>use Error: ' . mysqli_error($dbc) . '</p>' ;
 	}
+}
 
 ?>
 <div class = "left">
@@ -71,7 +100,6 @@ $page_title = 'DataCast - Query';
 			</p>
 			<p><input type = "submit" value = "Submit"></p>
 		</form>
-
 		</div>
 	</div>
 </div>

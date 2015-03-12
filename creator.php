@@ -1,6 +1,6 @@
 <?php
 $page_title = 'DataCast - Creator';
-include('includes/header.php');
+require('includes/header.php');
 require('../connect_db.php');
 
 echo '
