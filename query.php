@@ -1,15 +1,42 @@
+
 <?php 
 
-$page_title = 'DataCast - Query';
+if(!isset($_GET['db'])){
+	require('creator.php');
+	exit();
+}
+
 require('includes/header.php');
+
+require('../connect_db.php');
+
+if(!isset($_SESSION['user_id'])){
+	echo '<p>You need to <a href = "signin.php">Sign in</a> before doing anything here.</p>';
+	exit();
+}
+
+$q = 'select * from userdatabase where dbid =' . $_GET['db'] . ' AND user_id=' . $_SESSION['user_id'];
+$r = mysqli_query($dbc,$q);
+$num = mysqli_num_rows($r);
+
+if(!$num>0){
+	echo '<p>You seem to be in the wrong place.</p>';
+	echo '<a href = "creator.php" >return</a>';
+	exit();
+}
+
+if(!$r){
+	echo '<p>You seem to be in the wrong place.</p>';
+	echo '<a href = "creator.php" >return</a>';
+	exit();
+}
+
+
+$page_title = 'DataCast - Query';
 
 echo '<div class = "centerbox">
 <div class = "centered">';
 
-if(!isset($_SESSION['user_id'])){
-	echo '<p>You need to <a href = "login.php">login</a> before doing anything here.</p>';
-	exit();
-}
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -22,6 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 # in this case you can SELECT, UPDATE, INSERT and DELETE
 
 	require('../secondary.php');
+
 
 # make sure the queries are run against the database provided by 
 # the URL
@@ -40,44 +68,46 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 # make sure the user doesn't try to switch database by checking if 
 # USE is at the start of a query
 
-			if(strpos($q,'use') === 0 || strpos($q,'USE') === 0 || strpos($q,'show') === 0 || strpos($q,'SHOW') === 0 ){
-				echo '<p>Error: illegal syntax, cannot use SHOW or USE in your queries!</p>';
+			if(strpos($q,'use') === 0 || strpos($q,'USE') === 0 || strpos($q,'show') === 0 || strpos($q,'SHOW') === 0 || strpos($q,'create') === 0 || strpos($q,'CREATE') === 0 ){
+				echo '<p>Error: illegal syntax, cannot use SHOW or USE or CREATE in your queries!</p>';
 			} else{
 
 				$r = mysqli_query($dbc,$q);
 
 				if($r){
+					if (!is_bool($r)){
 
 # display result of query
 
-					echo '<table>
-					<tr>';
+						echo '<table>
+						<tr>';
 
-					$numcol = mysqli_num_fields($r);
-					$num = 0;
-
-					$names = mysqli_fetch_fields ($r);
-
-					foreach($names as $name){
-						echo '<th>' . $name->name . '</th>';
-					}
-
-					echo '</tr>';
-
-					while($row = mysqli_fetch_row($r)){
-
-						echo '<tr>';
-
-						while($num < $numcol){
-							echo '<td>';
-							echo $row[$num];
-							echo '</td>';
-							$num++;
-						}
+						$numcol = mysqli_num_fields($r);
 						$num = 0;
+
+						$names = mysqli_fetch_fields ($r);
+
+						foreach($names as $name){
+							echo '<th>' . $name->name . '</th>';
+						}
+
 						echo '</tr>';
+
+						while($row = mysqli_fetch_row($r)){
+
+							echo '<tr>';
+
+							while($num < $numcol){
+								echo '<td>';
+								echo $row[$num];
+								echo '</td>';
+								$num++;
+							}
+							$num = 0;
+							echo '</tr>';
+						}
+						echo '</table>';
 					}
-					echo '</table>';
 				} else{
 					echo '<p>Error: ' . mysqli_error($dbc) . '</p>';
 				}
